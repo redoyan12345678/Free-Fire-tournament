@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <style>
+    body {
+      background: #1c1c2e;
+      color: white;
+      font-family: sans-serif;
+      padding: 20px;
+      text-align: center;
+    }
+    .profile-box {
+      background: #2f2f44;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 50px;
+    }
+    .username {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .balance {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+    button {
+      background: #ff9f1c;
+      color: black;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="profile-box">
+  <div class="username" id="username">Username</div>
+  <div class="balance">Balance: <span id="balance">৳0</span></div>
+  <button onclick="logout()">Logout</button>
+</div>
+
+<script>
+  const username = localStorage.getItem(\"currentUser\");
+  if (!username) {
+    window.location.href = \"index.html\";
+  } else {
+    const user = JSON.parse(localStorage.getItem(username));
+    document.getElementById(\"username\").innerText = username;
+    document.getElementById(\"balance\").innerText = \"৳\" + user.balance;
+  }
+
+  function logout() {
+    localStorage.removeItem(\"currentUser\");
+    window.location.href = \"index.html\";
+  }
+</script>
+
+</body>
+</html>
