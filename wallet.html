@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wallet</title>
+  <style>
+    body {
+      background: #1c1c2e;
+      color: white;
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    h2 { text-align: center; margin-bottom: 20px; }
+    label { display: block; margin-top: 15px; }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: none;
+    }
+    button {
+      background: #ff9f1c;
+      color: black;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>💰 Wallet</h2>
+
+<h3>📥 Deposit</h3>
+<label>Send Money To:</label>
+<p style="background:#333;padding:10px;border-radius:8px;">017XXXXXXXX (bKash/Nagad)</p>
+
+<label>Amount</label>
+<input type="number" placeholder="Amount">
+
+<label>Method</label>
+<select>
+  <option value="bkash">bKash</option>
+  <option value="nagad">Nagad</option>
+</select>
+
+<label>Transaction ID</label>
+<input type="text" placeholder="Txn ID">
+
+<button onclick="alert('Deposit request sent!')">Confirm Deposit</button>
+
+<hr style="margin:30px 0; border: 1px solid #444;">
+
+<h3>📤 Withdraw</h3>
+<label>Amount</label>
+<input type="number" placeholder="Amount">
+
+<label>Method</label>
+<select>
+  <option value="bkash">bKash</option>
+  <option value="nagad">Nagad</option>
+</select>
+
+<label>Number</label>
+<input type="text" placeholder="Your Number">
+
+<button onclick="alert('Withdraw request sent!')">Confirm Withdraw</button>
+
+</body>
+</html>
