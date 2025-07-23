@@ -1,0 +1,125 @@
+<!-- File: index.html (Login / Register / Forget Password) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Free Fire Tournament - Auth</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
+    body {
+      background: linear-gradient(135deg, #1f1f2b, #33334d);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      width: 90%;
+      max-width: 400px;
+      background: #2c2f3a;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+    h2 { text-align: center; margin-bottom: 20px; }
+    input {
+      width: 100%; padding: 10px; margin: 8px 0;
+      border: none; border-radius: 8px;
+    }
+    button {
+      width: 100%; background: #ff9f1c;
+      border: none; padding: 12px;
+      margin-top: 10px; color: black;
+      font-weight: bold; border-radius: 8px;
+      cursor: pointer;
+    }
+    .link { text-align: center; margin-top: 15px; }
+    .link a { color: #4aa9ff; text-decoration: none; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+<div class="container" id="loginPage">
+  <h2>Login</h2>
+  <input type="text" placeholder="Username" id="loginUsername">
+  <input type="password" placeholder="Password" id="loginPassword">
+  <button onclick="login()">Login</button>
+  <div class="link">
+    <a href="#" onclick="showRegister()">Create Account</a> | 
+    <a href="#" onclick="showForget()">Forgot Password?</a>
+  </div>
+</div>
+<div class="container hidden" id="registerPage">
+  <h2>Create Account</h2>
+  <input type="text" placeholder="Username" id="registerUsername">
+  <input type="password" placeholder="Password" id="registerPassword">
+  <button onclick="register()">Register</button>
+  <div class="link">
+    <a href="#" onclick="showLogin()">Back to Login</a>
+  </div>
+</div>
+<div class="container hidden" id="forgetPage">
+  <h2>Recover Password</h2>
+  <input type="text" placeholder="Your Username" id="forgetUsername">
+  <button onclick="recover()">Recover</button>
+  <div class="link">
+    <a href="#" onclick="showLogin()">Back to Login</a>
+  </div>
+</div>
+<script>
+  function showLogin() {
+    document.getElementById('loginPage').classList.remove('hidden');
+    document.getElementById('registerPage').classList.add('hidden');
+    document.getElementById('forgetPage').classList.add('hidden');
+  }
+  function showRegister() {
+    document.getElementById('loginPage').classList.add('hidden');
+    document.getElementById('registerPage').classList.remove('hidden');
+    document.getElementById('forgetPage').classList.add('hidden');
+  }
+  function showForget() {
+    document.getElementById('loginPage').classList.add('hidden');
+    document.getElementById('registerPage').classList.add('hidden');
+    document.getElementById('forgetPage').classList.remove('hidden');
+  }
+  function login() {
+    const username = document.getElementById('loginUsername').value;
+    const password = document.getElementById('loginPassword').value;
+    const user = JSON.parse(localStorage.getItem(username));
+    if (user && user.password === password) {
+      alert("Login Successful");
+      localStorage.setItem("currentUser", username);
+      window.location.href = "main.html";
+    } else {
+      alert("Invalid credentials");
+    }
+  }
+  function register() {
+    const username = document.getElementById('registerUsername').value;
+    const password = document.getElementById('registerPassword').value;
+    if (!username || !password) {
+      alert("Please fill all fields");
+      return;
+    }
+    if (localStorage.getItem(username)) {
+      alert("Username already exists");
+      return;
+    }
+    localStorage.setItem(username, JSON.stringify({ username, password, balance: 0 }));
+    alert("Account Created");
+    showLogin();
+  }
+  function recover() {
+    const username = document.getElementById('forgetUsername').value;
+    const user = JSON.parse(localStorage.getItem(username));
+    if (user) {
+      alert("Your password is: " + user.password);
+    } else {
+      alert("User not found");
+    }
+  }
+</script>
+</body>
+</html>
