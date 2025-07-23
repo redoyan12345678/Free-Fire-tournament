@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Main Page</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background: #1c1c2e;
+      color: white;
+    }
+    header {
+      background: #29293d;
+      padding: 15px;
+      text-align: right;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    .blank-box {
+      margin: 20px;
+      background: #2f2f44;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+    }
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      background: #29293d;
+      padding: 10px 0;
+      border-top: 1px solid #444;
+    }
+    .bottom-nav button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .bottom-nav button:hover {
+      color: #ff9f1c;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  Balance: <span id="userBalance">৳0</span>
+</header>
+
+<div class="blank-box">
+  🔲 Blank ঘর (ম্যাচ এখানে দেখাবে)
+</div>
+
+<div class="bottom-nav">
+  <button onclick="goTo('profile.html')">
+    👤<br>Profile
+  </button>
+  <button onclick="goTo('wallet.html')">
+    💰<br>Wallet
+  </button>
+  <button onclick="goTo('history.html')">
+    📜<br>History
+  </button>
+</div>
+
+<script>
+  const username = localStorage.getItem(\"currentUser\");
+  if (!username) {
+    window.location.href = \"index.html\";
+  } else {
+    const user = JSON.parse(localStorage.getItem(username));
+    document.getElementById(\"userBalance\").innerText = \"৳\" + user.balance;
+  }
+
+  function goTo(page) {
+    window.location.href = page;
+  }
+</script>
+
+</body>
+</html>
