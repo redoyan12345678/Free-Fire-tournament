@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>History</title>
+  <style>
+    body {
+      background: #1c1c2e;
+      color: white;
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .history-list {
+      list-style: none;
+      padding: 0;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .history-item {
+      background: #2f2f44;
+      padding: 15px 20px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+    }
+    .status {
+      padding: 5px 12px;
+      border-radius: 15px;
+      font-size: 14px;
+      color: white;
+      font-weight: 600;
+    }
+    .pending {
+      background-color: #ffba08;
+      color: #222;
+    }
+    .win {
+      background-color: #06d6a0;
+    }
+    .loss {
+      background-color: #ef476f;
+    }
+  </style>
+</head>
+<body>
+
+<h2>📜 History</h2>
+
+<ul class="history-list" id="historyList">
+  <!-- History items inserted here dynamically -->
+</ul>
+
+<script>
+  const username = localStorage.getItem("currentUser");
+  if (!username) {
+    window.location.href = "index.html";
+  }
+
+  // Sample data structure stored in localStorage
+  // Example:
+  // localStorage.setItem("history_user1", JSON.stringify([
+  //   { matchTitle: "Match 1", status: "pending" },
+  //   { matchTitle: "Match 2", status: "win" },
+  //   { matchTitle: "Match 3", status: "loss" }
+  // ]));
+
+  const historyKey = "history_" + username;
+  const historyData = JSON.parse(localStorage.getItem(historyKey)) || [];
+
+  const historyList = document.getElementById("historyList");
+
+  if(historyData.length === 0){
+    historyList.innerHTML = "<li style='text-align:center; padding: 20px; color:#ccc;'>No history found.</li>";
+  } else {
+    historyData.forEach(item => {
+      const li = document.createElement("li");
+      li.classList.add("history-item");
+
+      const statusSpan = document.createElement("span");
+      statusSpan.classList.add("status");
+      statusSpan.innerText = item.status.charAt(0).toUpperCase() + item.status.slice(1);
+
+      if(item.status === "pending") statusSpan.classList.add("pending");
+      else if(item.status === "win") statusSpan.classList.add("win");
+      else if(item.status === "loss") statusSpan.classList.add("loss");
+
+      li.innerHTML = `<div>${item.matchTitle}</div>`;
+      li.appendChild(statusSpan);
+
+      historyList.appendChild(li);
+    });
+  }
+</script>
+
+</body>
+</html>
